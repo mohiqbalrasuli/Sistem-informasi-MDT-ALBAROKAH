@@ -130,11 +130,11 @@
                                                                 </div>
                                                                 <div class="modal-body text-center">
                                                                     @if (in_array(pathinfo($item->foto, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                                                        <img src="{{ asset('storage/murid/foto/' . $item->foto) }}"
+                                                                        <img src="{{ asset('storage/' . $item->foto) }}"
                                                                             class="img-fluid">
                                                                     @else
                                                                         <iframe
-                                                                            src="{{ asset('storage/murid/foto/' . $item->foto) }}"
+                                                                            src="{{ asset('storage/' . $item->foto) }}"
                                                                             width="100%" height="500"></iframe>
                                                                     @endif
                                                                 </div>
@@ -157,11 +157,11 @@
                                                                 </div>
                                                                 <div class="modal-body text-center">
                                                                     @if (in_array(pathinfo($item->akta, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                                                        <img src="{{ asset('storage/murid/akta/' . $item->akta) }}"
+                                                                        <img src="{{ asset('storage/' . $item->akta) }}"
                                                                             class="img-fluid">
                                                                     @else
                                                                         <iframe
-                                                                            src="{{ asset('storage/murid/akta/' . $item->akta) }}"
+                                                                            src="{{ asset('storage/' . $item->akta) }}"
                                                                             width="100%" height="500"></iframe>
                                                                     @endif
                                                                 </div>
@@ -184,11 +184,11 @@
                                                                 </div>
                                                                 <div class="modal-body text-center">
                                                                     @if (in_array(pathinfo($item->akta, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                                                        <img src="{{ asset('storage/murid/kk/' . $item->kk) }}"
+                                                                        <img src="{{ asset('storage/' . $item->kk) }}"
                                                                             class="img-fluid">
                                                                     @else
                                                                         <iframe
-                                                                            src="{{ asset('storage/murid/kk/' . $item->kk) }}"
+                                                                            src="{{ asset('storage/' . $item->kk) }}"
                                                                             width="100%" height="500"></iframe>
                                                                     @endif
                                                                 </div>

@@ -46,7 +46,7 @@ class MuridController extends Controller
             'no_telp' => 'required|string|max:20',
         ]);
         // ================= SIMPAN KE DB =================
-        $data = ([
+        $data = [
             'nama' => $request->nama,
             'kelas' => $request->kelas,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -62,30 +62,20 @@ class MuridController extends Controller
             'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ibu' => $request->pekerjaan_ibu,
             'no_telp' => $request->no_telp,
-        ]);
-        // Jika ada foto baru, proses upload
+        ];
         if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/murid/foto/'), $filename);
-
-            $data['foto'] = $filename;
+            $path = $request->file('foto')->store('murid/foto', 'public');
+            $data['foto'] = $path;
         }
-        // Jika ada akta baru, proses upload
+
         if ($request->hasFile('akta')) {
-            $file = $request->file('akta');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/murid/akta/'), $filename);
-
-             $data['akta'] = $filename;
+            $path = $request->file('akta')->store('murid/akta', 'public');
+            $data['akta'] = $path;
         }
-        // Jika ada kk baru, proses upload
-        if ($request->hasFile('kk')) {
-            $file = $request->file('kk');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/murid/kk/'), $filename);
 
-             $data['kk'] = $filename;
+        if ($request->hasFile('kk')) {
+            $path = $request->file('kk')->store('murid/kk', 'public');
+            $data['kk'] = $path;
         }
 
         MuridModel::create($data);
@@ -124,7 +114,7 @@ class MuridController extends Controller
         ]);
 
         // ================= UPDATE DATA TEXT =================
-        $data = ([
+        $data = [
             'nama' => $request->nama,
             'kelas' => $request->kelas,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -137,50 +127,43 @@ class MuridController extends Controller
             'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ibu' => $request->pekerjaan_ibu,
             'no_telp' => $request->no_telp,
-        ]);
+        ];
         if ($request->hasFile('foto')) {
-            // Hapus foto lama jika perlu
-            if ($murid->foto && file_exists(public_path('storage/murid/foto/' . $murid->foto))) {
-                unlink(public_path('storage/murid/foto/' . $murid->foto));
+            // hapus file lama
+            if ($murid->foto && Storage::disk('public')->exists($murid->foto)) {
+                Storage::disk('public')->delete($murid->foto);
             }
 
-            // Simpan foto baru
-            $file = $request->file('foto');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/murid/foto/'), $filename);
-            $data['foto'] = $filename;
+            // simpan file baru
+            $path = $request->file('foto')->store('murid/foto', 'public');
+            $data['foto'] = $path;
         } else {
-            // Gunakan foto lama
             $data['foto'] = $murid->foto;
         }
+
         if ($request->hasFile('akta')) {
-            // Hapus akta lama jika perlu
-            if ($murid->akta && file_exists(public_path('storage/murid/akta/' . $murid->akta))) {
-                unlink(public_path('storage/murid/akta/' . $murid->akta));
+            // hapus file lama
+            if ($murid->akta && Storage::disk('public')->exists($murid->akta)) {
+                Storage::disk('public')->delete($murid->akta);
             }
 
-            // Simpan akta baru
-            $file = $request->file('akta');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/murid/akta/'), $filename);
-            $data['akta'] = $filename;
+            // simpan file baru
+            $path = $request->file('akta')->store('murid/akta', 'public');
+            $data['akta'] = $path;
         } else {
-            // Gunakan akta lama
             $data['akta'] = $murid->akta;
         }
+
         if ($request->hasFile('kk')) {
-            // Hapus kk lama jika perlu
-            if ($murid->kk && file_exists(public_path('storage/murid/kk/' . $murid->kk))) {
-                unlink(public_path('storage/murid/kk/' . $murid->kk));
+            // hapus file lama
+            if ($murid->kk && Storage::disk('public')->exists($murid->kk)) {
+                Storage::disk('public')->delete($murid->kk);
             }
 
-            // Simpan kk baru
-            $file = $request->file('kk');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/murid/kk/'), $filename);
-            $data['kk'] = $filename;
+            // simpan file baru
+            $path = $request->file('kk')->store('murid/kk', 'public');
+            $data['kk'] = $path;
         } else {
-            // Gunakan kk lama
             $data['kk'] = $murid->kk;
         }
         $murid->update($data);
@@ -189,7 +172,15 @@ class MuridController extends Controller
     public function destroy($id)
     {
         $murid = MuridModel::findOrFail($id);
-        // ===== HAPUS DATA =====
+        if ($murid->foto && Storage::disk('public')->exists($murid->foto)) {
+            Storage::disk('public')->delete($murid->foto);
+        }
+        if ($murid->akta && Storage::disk('public')->exists($murid->akta)) {
+            Storage::disk('public')->delete($murid->akta);
+        }
+        if ($murid->kk && Storage::disk('public')->exists($murid->kk)) {
+            Storage::disk('public')->delete($murid->kk);
+        }
         $murid->delete();
 
         return redirect('/data-murid')->with('swal_success', 'Data murid berhasil dihapus');

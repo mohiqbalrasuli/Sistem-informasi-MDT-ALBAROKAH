@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', function () {
+    return view('autentikasi.login');
+});
 Route::get('/dashboard',[DashboardController::class,'index']);
 Route::get('/dashboard/data-murid',[DashboardController::class,'dataMurid']);
 Route::get('/dashboard/data-murid-tahun',[DashboardController::class,'muridTahun']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MuridModel;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -9,7 +10,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard');
+        $muridlk = MuridModel::where('jenis_kelamin','Laki-laki')->count();
+        $muridpr = MuridModel::where('jenis_kelamin','Perempuan')->count();
+        return view('dashboard',compact('muridlk','muridpr'));
     }
     public function dataMurid()
     {
