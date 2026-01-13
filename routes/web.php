@@ -49,6 +49,10 @@ Route::get('/data-pengajar',[PengajarController::class,'index']);
 // fan
 Route::get('/data-fan',[FanController::class,'index'])->name('fan.index');
 Route::get('/data-fan/create',[FanController::class,'create']);
+Route::post('/data-fan/store',[FanController::class,'store']);
+Route::get('/data-fan/edit/{id}',[FanController::class,'edit']);
+Route::post('/data-fan/update/{id}',[FanController::class,'update']);;
+Route::delete('/data-fan/delete/{id}',[FanController::class,'destroy']);;
 
 
 

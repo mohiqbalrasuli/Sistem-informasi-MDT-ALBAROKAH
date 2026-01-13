@@ -111,9 +111,27 @@
                                                         <button type="submit" class="btn btn-danger btn-sm">
                                                             Hapus
                                                         </button>
-                                                    </form>>
+                                                    </form>
                                                 </td>
                                             </tr>
+                                            <script>
+                                                function confirmDelete(e) {
+                                                    e.preventDefault();
+
+                                                    Swal.fire({
+                                                        title: 'Yakin hapus?',
+                                                        text: 'Data yang dihapus tidak bisa dikembalikan!',
+                                                        icon: 'warning',
+                                                        showCancelButton: true,
+                                                        confirmButtonText: 'Ya, hapus',
+                                                        cancelButtonText: 'Batal'
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            e.target.submit();
+                                                        }
+                                                    });
+                                                }
+                                            </script>
                                         @endforeach
                                     </tbody>
                                 </table>

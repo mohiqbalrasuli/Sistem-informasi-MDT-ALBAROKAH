@@ -17,6 +17,6 @@ class FanModel extends Model
     ];
     public function pengajar()
     {
-        return $this->hasMany(PengajarModel::class);
+        return $this->belongsTo(PengajarModel::class,'pengajar_id');
     }
 }
