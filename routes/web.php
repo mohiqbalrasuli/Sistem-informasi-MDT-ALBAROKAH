@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FanController;
 use App\Http\Controllers\MuridController;
+use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PMBController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +44,11 @@ Route::post('/data-murid/store',[MuridController::class,'store']);
 Route::get('/data-murid/edit/{id}',[MuridController::class,'edit']);
 Route::post('/data-murid/update/{id}',[MuridController::class,'update']);
 Route::delete('/data-murid/delete/{id}', [MuridController::class, 'destroy']);
+//pengajar
+Route::get('/data-pengajar',[PengajarController::class,'index']);
+// fan
+Route::get('/data-fan',[FanController::class,'index'])->name('fan.index');
+Route::get('/data-fan/create',[FanController::class,'create']);
 
 
 

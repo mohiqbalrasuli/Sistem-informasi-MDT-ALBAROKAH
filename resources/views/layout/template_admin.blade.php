@@ -218,31 +218,31 @@
                                 aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
                                     class="hide-menu">Data Fan </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{url('/data-fan')}}" class="sidebar-link"><span
                                             class="hide-menu"> Semua
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{url('/data-fan?kelas=shifir_a')}}" class="sidebar-link"><span
                                             class="hide-menu"> Kelas Shifir A
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html"
+                                <li class="sidebar-item"><a href="{{url('/data-fan?kelas=shifir_b')}}"
                                         class="sidebar-link"><span class="hide-menu"> Kelas Shifir B
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html"
+                                <li class="sidebar-item"><a href="{{url('/data-fan?kelas=kelas_1')}}"
                                         class="sidebar-link"><span class="hide-menu"> Kelas 1
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html"
+                                <li class="sidebar-item"><a href="{{url('/data-fan?kelas=kelas_2')}}"
                                         class="sidebar-link"><span class="hide-menu"> Kelas 2
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html"
+                                <li class="sidebar-item"><a href="{{url('/data-fan?kelas=kelas_3')}}"
                                         class="sidebar-link"><span class="hide-menu"> Kelas 3
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html"
+                                <li class="sidebar-item"><a href="{{url('/data-fan?kelas=kelas_4')}}"
                                         class="sidebar-link"><span class="hide-menu"> Kelas 4
                                         </span></a>
                                 </li>
@@ -254,16 +254,16 @@
                                 aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
                                     class="hide-menu">Data Pengajar </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"><a href="/data-pengajar"
+                                        class="sidebar-link"><span class="hide-menu"> Semua
+                                        </span></a>
+                                </li>
                                 <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span
                                             class="hide-menu"> Struktur Kepengurusan
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item"><a href="form-checkbox-radio.html"
                                         class="sidebar-link"><span class="hide-menu"> Wali Kelas
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html"
-                                        class="sidebar-link"><span class="hide-menu"> Guru Fan
                                         </span></a>
                                 </li>
                             </ul>
