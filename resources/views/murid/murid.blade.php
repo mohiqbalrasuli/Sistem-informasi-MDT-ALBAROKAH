@@ -34,7 +34,7 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum Admin!
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum {{Auth::user()->name}}
                     </h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
@@ -117,10 +117,10 @@
                                                 <td>{{ $item->alamat }}</td>
                                                 <td>
                                                     <button class="btn btn-success" data-toggle="modal"
-                                                        data-target="#fotoModal">
+                                                        data-target="#fotoModal{{$item->id}}">
                                                         Lihat
                                                     </button>
-                                                    <div class="modal fade" id="fotoModal" tabindex="-1">
+                                                    <div class="modal fade" id="fotoModal{{$item->id}}" tabindex="-1">
                                                         <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -144,10 +144,10 @@
 
                                                 <td>
                                                     <button class="btn btn-success" data-toggle="modal"
-                                                        data-target="#aktaModal">
+                                                        data-target="#aktaModal{{$item->id}}">
                                                         Lihat
                                                     </button>
-                                                    <div class="modal fade" id="aktaModal" tabindex="-1">
+                                                    <div class="modal fade" id="aktaModal{{$item->id}}" tabindex="-1">
                                                         <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -171,10 +171,10 @@
                                                 </td>
                                                 <td>
                                                     <button class="btn btn-success" data-toggle="modal"
-                                                        data-target="#kkModal">
+                                                        data-target="#kkModal{{$item->id}}">
                                                         Lihat
                                                     </button>
-                                                    <div class="modal fade" id="kkModal" tabindex="-1">
+                                                    <div class="modal fade" id="kkModal{{$item->id}}" tabindex="-1">
                                                         <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">

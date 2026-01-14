@@ -1,6 +1,6 @@
 @extends('layout.template_admin')
-@section('title', 'Tambah Data Fan')
-@section('header', 'Tambah Data Fan')
+@section('title', 'Update Blog')
+@section('header', 'Update Blog')
 @section('content')
     @if (session('swal_success'))
         <script>
@@ -34,16 +34,16 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum Admin!
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum {{Auth::user()->name}}
                     </h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="/data-fan">Fan</a>
+                                <li class="breadcrumb-item"><a href="/data-fan">Blog</a>
                                 </li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Tambah Data Murid</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Update Blog/li>
                             </ol>
                         </nav>
                     </div>
@@ -61,38 +61,36 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mb-3">Form Tambah Fan</h4>
-                            <form action="/data-fan/store" method="POST" enctype="multipart/form-data">
+                            <h4 class="mb-3">Form Update blog</h4>
+                            <form action="/blog/update/{{$blog->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <!-- DATA MURID -->
                                 <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label>Nama Fan</label>
-                                        <input type="text" class="form-control" name="nama_fan" required>
+                                    <div class="col-12 form-group">
+                                        <label>Judul</label>
+                                        <input type="text" class="form-control" name="judul" value="{{$blog->judul}}" required>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Nama Kitab</label>
-                                        <input type="text" class="form-control" name="nama_kitab" required>
+                                    <div class="col-12 form-group">
+                                        <label>Konten</label>
+                                        <textarea class="form-control" name="konten" rows="3" required>{{ old('kontent', $blog->konten ?? '') }}</textarea>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Kelas</label>
-                                        <select class="form-control" name="kelas" required>
-                                            <option value="">-- Pilih --</option>
-                                            <option value="shifir_a">Shifir A</option>
-                                            <option value="shifir_b">Shifir B</option>
-                                            <option value="kelas_1">Kelas 1</option>
-                                            <option value="kelas_2">Kelas 2</option>
-                                            <option value="kelas_3">Kelas 3</option>
-                                            <option value="kelas_4">Kelas 4</option>
-                                        </select>
+                                    <div class="col-12 form-group">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Upload Thumbnail</span>
+                                            </div>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="thumbnail"
+                                                    id="inputGroupFile01">
+                                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Pengajar</label>
-                                        <select class="form-control" name="pengajar_id" required>
-                                            <option value="">-- Pilih --</option>
-                                            @foreach ($pengajar as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                            @endforeach
+                                    <div class="col-12 form-group">
+                                        <label>Status</label>
+                                        <select class="form-control" name="status" required>
+                                            <option value="publish" {{old('status', $blog->status ?? '') == 'publish' ? 'selected' : ''}}>Publish</option>
+                                            <option value="draft" {{old('status', $blog->status ?? '') == 'draft' ? 'selected' : ''}}>Draft</option>
                                         </select>
                                     </div>
                                     <div class="col-12 form-group">

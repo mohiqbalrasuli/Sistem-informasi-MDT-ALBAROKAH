@@ -18,7 +18,8 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum Admin!
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum
+                        {{ Auth::user()->name }}
                     </h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
@@ -47,7 +48,8 @@
                         <div class="d-flex d-lg-flex d-md-block align-items-center">
                             <div>
                                 <div class="d-inline-flex align-items-center">
-                                    <h2 class="text-dark mb-1 font-weight-medium">{{$muridlk}}/{{$muridpr}}</h2>
+                                    <h2 class="text-dark mb-1 font-weight-medium">{{ $muridlk }}/{{ $muridpr }}
+                                    </h2>
                                 </div>
                                 <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Jumlah Murid L/P
                                 </h6>
@@ -62,7 +64,7 @@
                     <div class="card-body">
                         <div class="d-flex d-lg-flex d-md-block align-items-center">
                             <div>
-                                <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">10</h2>
+                                <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">{{ $pengajar }}</h2>
                                 <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Jumlah Tenaga
                                     Pengajar
                                 </h6>
@@ -78,7 +80,7 @@
                         <div class="d-flex d-lg-flex d-md-block align-items-center">
                             <div>
                                 <div class="d-inline-flex align-items-center">
-                                    <h2 class="text-dark mb-1 font-weight-medium">26</h2>
+                                    <h2 class="text-dark mb-1 font-weight-medium">{{ $fan }}</h2>
                                 </div>
                                 <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Jumlah Fan</h6>
                             </div>
@@ -92,7 +94,7 @@
                     <div class="card-body">
                         <div class="d-flex d-lg-flex d-md-block align-items-center">
                             <div>
-                                <h2 class="text-dark mb-1 font-weight-medium">8</h2>
+                                <h2 class="text-dark mb-1 font-weight-medium">{{ $admin }}</h2>
                                 <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Akses Admin</h6>
                             </div>
                             <div class="ml-auto mt-md-3 mt-lg-0">
@@ -255,7 +257,7 @@
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: data.Tahun,
+                        labels: data.tahun,
                         datasets: [{
                             data: data.murid,
                             label: 'Jumlah Murid',
@@ -264,14 +266,30 @@
                     },
                     options: {
                         responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                    precision: 0,
+                                    callback: value => value
+                                }
+                            }
+                        },
                         plugins: {
                             title: {
                                 display: true,
                                 text: 'Jumlah Murid Tiap Tahun'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + parseInt(context.raw);
+                                    }
+                                }
                             }
                         }
-                    }
-
+                    },
                 });
             });
     </script>
@@ -308,10 +326,27 @@
                     },
                     options: {
                         responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                    precision: 0,
+                                    callback: value => value
+                                }
+                            }
+                        },
                         plugins: {
                             title: {
                                 display: true,
                                 text: 'Jumlah Murid L/P Tiap Kelas'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + parseInt(context.raw);
+                                    }
+                                }
                             }
                         }
                     }

@@ -20,7 +20,7 @@ class FanController extends Controller
     public function create()
     {
         $pengajar = PengajarModel::all();
-        return view('pengajar.create_fan', compact('pengajar'));
+        return view('fan.create_fan', compact('pengajar'));
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class FanController extends Controller
     {
         $fan = FanModel::findOrFail($id);
         $pengajar = PengajarModel::all();
-        return view('pengajar.update_fan', compact('fan', 'pengajar'));
+        return view('fan.update_fan', compact('fan', 'pengajar'));
     }
     public function update(Request $request, $id)
     {

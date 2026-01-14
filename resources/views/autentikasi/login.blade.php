@@ -13,6 +13,7 @@
     <title>Sign-in Admin MDT ULA Al-Barokah</title>
     <!-- Custom CSS -->
     <link href={{ asset('assets/dist/css/style.min.css') }} rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -22,6 +23,20 @@
 </head>
 
 <body>
+    @if ($errors->any())
+        <script>
+            let errorMessage = "";
+            @foreach ($errors->all() as $error)
+                errorMessage += "• {{ $error }}\n";
+            @endforeach
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errorMessage,
+            });
+        </script>
+    @endif
     <div class="main-wrapper">
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
@@ -51,20 +66,21 @@
                         </div>
                         <h2 class="mt-3 text-center">Sign In</h2>
                         <p class="text-center">Input Email dan Password untuk Akses ke Panel Admin</p>
-                        <form class="mt-4">
+                        <form class="mt-4" action="/login" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="text-dark" for="uname">Email</label>
                                         <input class="form-control" id="uname" type="email"
-                                            placeholder="enter your username">
+                                            placeholder="enter your username" name="email">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="text-dark" for="pwd">Password</label>
                                         <input class="form-control" id="pwd" type="password"
-                                            placeholder="enter your password">
+                                            placeholder="enter your password" name="password">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-center">

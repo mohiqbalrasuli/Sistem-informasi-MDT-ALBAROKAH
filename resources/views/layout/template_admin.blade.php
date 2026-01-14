@@ -119,7 +119,7 @@
                                 <img src={{ asset('assets/images/users/profile-pic.jpg') }} alt="user"
                                     class="rounded-circle" width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">Admin</span> <i data-feather="chevron-down"
+                                        class="text-dark">{{Auth::user()->name}}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -269,7 +269,7 @@
                             </ul>
                         </li>
                         <li class="list-divider"></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="index.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/blog"
                                 aria-expanded="false"><i data-feather="book-open" class="feather-icon"></i><span
                                     class="hide-menu">Blog</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="index.html"
