@@ -9,6 +9,7 @@ use App\Http\Controllers\MuridController;
 use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PMBController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StrukturalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,7 +18,7 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProcess']);
 
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::middleware(['auth','admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -39,6 +40,11 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/profile/tujuan-delete/{id}', [ProfileController::class, 'tujuanDelete']);
     // admin
     Route::get('/data-admin', [AdminController::class, 'index']);
+    Route::get('/data-admin/create', [AdminController::class, 'create']);
+    Route::post('/data-admin/store', [AdminController::class, 'store']);
+    Route::get('/data-admin/edit/{id}', [AdminController::class, 'edit']);
+    Route::post('/data-admin/update/{id}', [AdminController::class, 'update']);
+    Route::delete('/data-admin/delete/{id}', [AdminController::class, 'destroy']);
     // PMB
     Route::get('/data-murid-baru', [PMBController::class, 'index']);
     Route::get('/data-murid-baru/edit', [PMBController::class, 'edit']);
@@ -51,6 +57,18 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::delete('/data-murid/delete/{id}', [MuridController::class, 'destroy']);
     //pengajar
     Route::get('/data-pengajar', [PengajarController::class, 'index']);
+    Route::get('/data-pengajar/create', [PengajarController::class, 'create']);
+    Route::post('/data-pengajar/store', [PengajarController::class, 'store']);
+    Route::get('/data-pengajar/edit/{id}', [PengajarController::class, 'edit']);
+    Route::post('/data-pengajar/update/{id}', [PengajarController::class, 'update']);
+    Route::delete('/data-pengajar/delete/{id}', [PengajarController::class, 'destroy']);
+    //struktural
+    Route::get('/data-struktural', [StrukturalController::class, 'index']);
+    Route::get('/data-struktural/create', [StrukturalController::class, 'create']);
+    Route::post('/data-struktural/store', [StrukturalController::class, 'store']);
+    Route::get('/data-struktural/edit/{id}', [StrukturalController::class, 'edit']);
+    Route::post('/data-struktural/update/{id}', [StrukturalController::class, 'update']);
+    Route::delete('/data-struktural/delete/{id}', [StrukturalController::class, 'destroy']);
     // fan
     Route::get('/data-fan', [FanController::class, 'index'])->name('fan.index');
     Route::get('/data-fan/create', [FanController::class, 'create']);

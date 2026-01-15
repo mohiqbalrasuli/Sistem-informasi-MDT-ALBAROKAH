@@ -1,6 +1,6 @@
 @extends('layout.template_admin')
-@section('title', 'Tambah Data Fan')
-@section('header', 'Tambah Data Fan')
+@section('title', 'Tambah Data Admin')
+@section('header', 'Tambah Data Admin')
 @section('content')
     @if (session('swal_success'))
         <script>
@@ -42,9 +42,9 @@
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="/data-fan">Fan</a>
+                                <li class="breadcrumb-item"><a href="/data-admin">Admin</a>
                                 </li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Tambah Data Fan</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Tambah Data Admin</li>
                             </ol>
                         </nav>
                     </div>
@@ -62,40 +62,30 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mb-3">Form Tambah Fan</h4>
-                            <form action="/data-fan/store" method="POST" enctype="multipart/form-data">
+                            <h4 class="mb-3">Form Tambah Admin</h4>
+                            <form action="/data-admin/store" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <!-- DATA MURID -->
                                 <div class="row">
                                     <div class="col-md-6 form-group">
-                                        <label>Nama Fan</label>
-                                        <input type="text" class="form-control" name="nama_fan" required>
+                                        <label>Username</label>
+                                        <input type="text" class="form-control" name="name" required>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label>Nama Kitab</label>
-                                        <input type="text" class="form-control" name="nama_kitab" required>
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="email" required>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label>Kelas</label>
-                                        <select class="form-control" name="kelas" required>
-                                            <option value="">-- Pilih --</option>
-                                            <option value="shifir_a">Shifir A</option>
-                                            <option value="shifir_b">Shifir B</option>
-                                            <option value="kelas_1">Kelas 1</option>
-                                            <option value="kelas_2">Kelas 2</option>
-                                            <option value="kelas_3">Kelas 3</option>
-                                            <option value="kelas_4">Kelas 4</option>
-                                        </select>
+                                        <label>Password</label>
+                                        <input type="password" class="form-control" name="password" required>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label>Pengajar</label>
-                                        <select class="form-control" name="pengajar_id" required>
-                                            <option value="">-- Pilih --</option>
-                                            @foreach ($pengajar as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>Konfirmasi Password</label>
+                                        <input type="password" class="form-control" name="password_confirmation" required>
                                     </div>
+                                    <small id="msg" style="color:red; display:none;">
+                                        Password tidak sama
+                                    </small>
                                     <div class="col-12 form-group">
                                         <div class="text-right">
                                             <button type="submit" class="btn btn-success">
@@ -124,4 +114,24 @@
         <!-- End footer -->
         <!-- ============================================================== -->
     </div>
+    <script>
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('password_confirmation');
+        const submitBtn = document.getElementById('submitBtn');
+        const msg = document.getElementById('msg');
+
+        function checkPassword() {
+            if (password.value !== "" && password.value === confirmPassword.value) {
+                submitBtn.disabled = false;
+                msg.style.display = "none";
+            } else {
+                submitBtn.disabled = true;
+                msg.style.display = "block";
+            }
+        }
+
+        password.addEventListener('keyup', checkPassword);
+        confirmPassword.addEventListener('keyup', checkPassword);
+    </script>
+
 @endsection

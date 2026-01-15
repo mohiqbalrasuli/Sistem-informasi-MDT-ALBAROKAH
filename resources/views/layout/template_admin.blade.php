@@ -10,7 +10,7 @@
     <meta name="author" content=>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href={{ asset('assets/images/logo.jpg') }}>
-    <title>@yield('title')</title>
+    <title>@yield('title') - MDT Ula Al-Barokah</title>
     <!-- Custom CSS -->
     <link href={{ asset('assets/extra-libs/c3/c3.min.css') }} rel="stylesheet">
     <link href={{ asset('assets/libs/chartist/dist/chartist.min.css') }} rel="stylesheet">
@@ -137,7 +137,7 @@
                                         class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="power"
+                                <a class="dropdown-item" href="/logout"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
                                 <div class="dropdown-divider"></div>
@@ -258,12 +258,8 @@
                                         class="sidebar-link"><span class="hide-menu"> Semua
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-input-grid.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="/data-struktural" class="sidebar-link"><span
                                             class="hide-menu"> Struktur Kepengurusan
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html"
-                                        class="sidebar-link"><span class="hide-menu"> Wali Kelas
                                         </span></a>
                                 </li>
                             </ul>

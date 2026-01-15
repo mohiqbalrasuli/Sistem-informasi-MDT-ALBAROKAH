@@ -115,7 +115,7 @@
                                             <option value="">-- Pilih --</option>
                                             @foreach ($pengajar as $item)
                                                 <option value="{{$item->id}}"
-                                                    {{old('pengajar_id', $fan->pengajar_id ?? '') == $fan->pengajar_id ? 'selected' : ''}}>
+                                                    {{old('pengajar_id', $fan->pengajar_id ?? '') == $item->id ? 'selected' : ''}}>
                                                     {{$item -> nama}}</option>
                                             @endforeach
                                         </select>

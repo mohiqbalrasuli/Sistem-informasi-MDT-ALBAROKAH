@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-2">
                                 <h4 class="card-title">Data Pengajar</h4>
-                                <a href="/data-murid/create" class="btn waves-effect waves-light btn-success">Tambah</a>
+                                <a href="/data-pengajar/create" class="btn waves-effect waves-light btn-success">Tambah</a>
                             </div>
                             <div class="table-responsive">
 
@@ -98,7 +98,7 @@
                                                         <button type="submit" class="btn btn-danger btn-sm">
                                                             Hapus
                                                         </button>
-                                                    </form>>
+                                                    </form>
                                                 </td>
                                             </tr>
                                             <script>

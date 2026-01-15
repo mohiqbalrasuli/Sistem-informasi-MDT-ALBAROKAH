@@ -1,6 +1,6 @@
 @extends('layout.template_admin')
-@section('title', 'Tambah Data Fan')
-@section('header', 'Tambah Data Fan')
+@section('title', 'Update Data Pengajar')
+@section('header', 'Update Data Pengajar')
 @section('content')
     @if (session('swal_success'))
         <script>
@@ -34,17 +34,16 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum
-                        {{ Auth::user()->name }}
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum {{Auth::user()->name}}
                     </h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="/data-fan">Fan</a>
+                                <li class="breadcrumb-item"><a href="/data-pengajar">Pengajar</a>
                                 </li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Tambah Data Fan</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Update Data Pengajar</li>
                             </ol>
                         </nav>
                     </div>
@@ -62,39 +61,45 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="mb-3">Form Tambah Fan</h4>
-                            <form action="/data-fan/store" method="POST" enctype="multipart/form-data">
+                            <h4 class="mb-3">Form Update Pengajar</h4>
+                            <form action="/data-pengajar/update/{{$pengajar->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <!-- DATA MURID -->
                                 <div class="row">
                                     <div class="col-md-6 form-group">
-                                        <label>Nama Fan</label>
-                                        <input type="text" class="form-control" name="nama_fan" required>
+                                        <label>Nama</label>
+                                        <input type="text" class="form-control" name="nama" value="{{$pengajar->nama}}" required>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label>Nama Kitab</label>
-                                        <input type="text" class="form-control" name="nama_kitab" required>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>Kelas</label>
-                                        <select class="form-control" name="kelas" required>
+                                        <label>Jenis Kelamin</label>
+                                        <select class="form-control" name="jenis_kelamin" required>
                                             <option value="">-- Pilih --</option>
-                                            <option value="shifir_a">Shifir A</option>
-                                            <option value="shifir_b">Shifir B</option>
-                                            <option value="kelas_1">Kelas 1</option>
-                                            <option value="kelas_2">Kelas 2</option>
-                                            <option value="kelas_3">Kelas 3</option>
-                                            <option value="kelas_4">Kelas 4</option>
+                                            <option value="Laki-laki"
+                                                {{ old('jenis_kelamin', $pengajar->jenis_kelamin ?? '') == 'Laki-laki' ? 'selected' : '' }}>
+                                                Laki-laki
+                                            </option>
+
+                                            <option value="Perempuan"
+                                                {{ old('jenis_kelamin', $pengajar->jenis_kelamin ?? '') == 'Perempuan' ? 'selected' : '' }}>
+                                                Perempuan
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label>Pengajar</label>
-                                        <select class="form-control" name="pengajar_id" required>
-                                            <option value="">-- Pilih --</option>
-                                            @foreach ($pengajar as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>Tempat Lahir</label>
+                                        <input type="text" class="form-control" value="{{$pengajar->tempat_lahir}}" name="tempat_lahir" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Tanggal Lahir</label>
+                                        <input type="date" class="form-control" value="{{$pengajar->tanggal_lahir}}" name="tanggal_lahir" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Alamat</label>
+                                        <textarea class="form-control" name="alamat" rows="3" required>{{ old('alamat', $pengajar->alamat ?? '') }}</textarea>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>No. Telp</label>
+                                        <input type="text" class="form-control" value="{{$pengajar->no_telp}}" name="no_telp" required>
                                     </div>
                                     <div class="col-12 form-group">
                                         <div class="text-right">
@@ -108,6 +113,7 @@
                                     </div>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>

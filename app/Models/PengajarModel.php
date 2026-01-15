@@ -21,4 +21,8 @@ class PengajarModel extends Model
     {
         return $this->hasMany(FanModel::class,'pengajar_id');
     }
+    public function struktural()
+    {
+        return $this->hasMany(strukturalModel::class,'pengajar_id');
+    }
 }
