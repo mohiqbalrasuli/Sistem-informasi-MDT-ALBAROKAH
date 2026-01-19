@@ -2,6 +2,31 @@
 @section('title', 'Data Admin')
 @section('header', 'Data Admin')
 @section('content')
+@if (session('swal_success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: "{{ session('swal_success') }}",
+                timer: 2500,
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+    @if ($errors->any())
+        <script>
+            let errorMessage = "";
+            @foreach ($errors->all() as $error)
+                errorMessage += "• {{ $error }}\n";
+            @endforeach
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: errorMessage,
+            });
+        </script>
+    @endif
     <div class="page-wrapper">
         <!-- ============================================================== -->
         <!-- Bread crumb and right sidebar toggle -->

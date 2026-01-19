@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\ProfileModel;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view) {
+        $appprofile = ProfileModel::first();
+        $tahunIni = now()->year;
+
+
+        $view->with([
+            'appprofile' => $appprofile,
+            'tahunIni' => $tahunIni,
+        ]);
+    });
     }
 }

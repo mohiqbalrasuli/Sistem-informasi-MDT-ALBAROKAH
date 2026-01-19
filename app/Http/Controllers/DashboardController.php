@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogModel;
 use App\Models\FanModel;
 use App\Models\MuridModel;
 use App\Models\PengajarModel;
@@ -16,10 +17,10 @@ class DashboardController extends Controller
     {
         $pengajar = PengajarModel::count();
         $fan = FanModel::count();
-        $admin = User::count();
+        $blog = BlogModel::where('status','publish')->count();
         $muridlk = MuridModel::where('jenis_kelamin', 'Laki-laki')->count();
         $muridpr = MuridModel::where('jenis_kelamin', 'Perempuan')->count();
-        return view('dashboard', compact('muridlk', 'muridpr', 'pengajar', 'admin', 'fan'));
+        return view('dashboard', compact('muridlk', 'muridpr', 'pengajar', 'blog', 'fan'));
     }
     public function dataMurid()
     {

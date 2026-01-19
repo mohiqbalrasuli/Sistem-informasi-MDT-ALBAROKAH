@@ -6,7 +6,11 @@ use App\Models\MisiModel;
 use App\Models\ProfileModel;
 use App\Models\TujuanModel;
 use App\Models\VisiModel;
+use App\Models\GaleriModel;
+use App\Models\ProgramUnggulanModel;
+use App\Models\WaktuPMBModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -16,8 +20,116 @@ class ProfileController extends Controller
         $visi = VisiModel::all();
         $misi = MisiModel::all();
         $tujuan = TujuanModel::all();
-        return view('profile.profile', compact('profile','visi','misi','tujuan'));
+        $galeri = GaleriModel::all();
+        $program = ProgramUnggulanModel::all();
+        $waktu = WaktuPMBModel::first();
+        return view('profile.profile', compact('profile','visi','misi','tujuan','galeri','program','waktu'));
     }
+    // setting PBM
+    public function pmbSetting(Request $request)
+    {
+        $request->validate([
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        ]);
+
+        $profile = WaktuPMBModel::first();
+        $profile->tanggal_mulai = $request->tanggal_mulai;
+        $profile->tanggal_selesai = $request->tanggal_selesai;
+        $profile->save();
+
+        return redirect()->back()->with('swal_success', 'Pengaturan PMB berhasil diperbarui!');
+    }
+    // galery start
+    public function galeristore(Request $request)
+    {
+        $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'keterangan' => 'nullable|string|max:255',
+        ]);
+        $data = [
+            'keterangan' => $request->keterangan,
+        ];
+       if ($request->hasFile('foto')) {
+            $path = $request->file('foto')->store('galeri', 'public');
+            $data['foto'] = $path;
+        }
+
+        // Simpan informasi gambar ke database
+        GaleriModel::create($data);
+        return redirect()->back()->with('swal_success', 'Gambar berhasil diunggah!');
+    }
+    public function galeriUpdate(Request $request, $id)
+    {
+        $galeri = GaleriModel::findOrFail($id);
+        $request->validate([
+            'keterangan' => 'nullable|string|max:255',
+        ]);
+        if ($request->hasFile('foto')) {
+            // hapus file lama
+            if ($galeri->foto && Storage::disk('public')->exists($galeri->foto)) {
+                Storage::disk('public')->delete($galeri->foto);
+            }
+
+            // simpan file baru
+            $path = $request->file('foto')->store('galeri', 'public');
+            $data['foto'] = $path;
+        } else {
+            $data['foto'] = $galeri->foto;
+        }
+        $galeri->keterangan = $request->keterangan;
+        $galeri->save();
+        return redirect()->back()->with('swal_success', 'Keterangan berhasil diupdate!');
+    }
+    public function galeriDelete($id)
+    {
+        $galeri = GaleriModel::findOrFail($id);
+        // Hapus file gambar dari server
+        if ($galeri->foto && Storage::disk('public')->exists($galeri->foto)) {
+            Storage::disk('public')->delete($galeri->foto);
+        }
+        $galeri->delete();
+        return redirect()->back()->with('swal_success', 'Gambar berhasil dihapus!');
+    }
+    // galery end
+
+    // program unggulan start
+    public function programStore(Request $request)
+    {
+        $request->validate([
+            'icon'=>'required|string|max:100',
+            'program_unggulan'=>'required|string|max:255',
+            'keterangan'=>'nullable|string|max:500',
+            ]);
+        ProgramUnggulanModel::create([
+            'program_unggulan'=> $request->program_unggulan,
+            'keterangan'=>$request->keterangan,
+            'icon'=>$request->icon
+        ]);
+        return redirect()->back()->with('swal_success','Program Unggulan berhasil di tambahkan!');
+    }
+    public function programUpdate(Request $request,$id)
+    {
+        $program = ProgramUnggulanModel::findOrFail($id);
+        $request->validate([
+            'icon'=>'required|string|max:100',
+            'program_unggulan'=>'required|string|max:255',
+            'keterangan'=>'nullable|string|max:500',
+            ]);
+        $program->program_unggulan = $request -> program_unggulan;
+        $program->keterangan = $request -> keterangan;
+        $program->icon = $request -> icon;
+        $program -> save();
+        return redirect('/setting')->with('swal_success','Program Unggulan berhasil di update!');
+    }
+    public function programDelete($id)
+    {
+        $program = ProgramUnggulanModel::findOrFail($id);
+        $program -> delete();
+        return redirect()->back()->with('swal_success','Program Unggulan berhasil di hapus!');
+    }
+    // program unggulan end
+
     // visi start
     public function visiStore(Request $request)
     {
@@ -33,7 +145,7 @@ class ProfileController extends Controller
         $request->validate(['visi'=>'required|string|max:255']);
         $visi->visi = $request -> visi;
         $visi -> save();
-        return redirect('/profile')->with('swal_success','Visi berhasil di update!');
+        return redirect('/setting')->with('swal_success','Visi berhasil di update!');
     }
     public function visiDelete($id)
     {
@@ -58,7 +170,7 @@ class ProfileController extends Controller
         $request->validate(['misi'=>'required|string|max:255']);
         $misi->misi = $request -> misi;
         $misi -> save();
-        return redirect('/profile')->with('swal_success','Misi berhasil di update!');
+        return redirect('/setting')->with('swal_success','Misi berhasil di update!');
     }
     public function misiDelete($id)
     {
@@ -83,7 +195,7 @@ class ProfileController extends Controller
         $request->validate(['tujuan'=>'required|string|max:255']);
         $tujuan->tujuan = $request -> tujuan;
         $tujuan -> save();
-        return redirect('/profile')->with('swal_success','Tujuan berhasil di update!');
+        return redirect('/setting')->with('swal_success','Tujuan berhasil di update!');
     }
     public function tujuanDelete($id)
     {
@@ -118,16 +230,16 @@ class ProfileController extends Controller
 
         // Jika ada gambar baru, proses upload
         if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('storage/profile/'), $filename);
-
-            // Hapus gambar lama jika ada
-            if ($profile->gambar && file_exists(public_path('uploads/profile/' . $profile->gambar))) {
-                unlink(public_path('uploads/profile/' . $profile->gambar));
+            // hapus file lama
+            if ($profile->gambar && Storage::disk('public')->exists($profile->gambar)) {
+                Storage::disk('public')->delete($profile->gambar);
             }
 
-            $profile->gambar = $filename; // update nama file
+            // simpan file baru
+            $path = $request->file('gambar')->store('profile', 'public');
+            $profile['gambar'] = $path;
+        } else {
+            $profile['gambar'] = $profile->gambar;
         }
 
         // Update field lainnya
@@ -147,6 +259,6 @@ class ProfileController extends Controller
         // Simpan perubahan
         $profile->save();
 
-        return redirect('/profile')->with('swal_success', 'Profile berhasil diperbarui!');
+        return redirect('/setting')->with('swal_success', 'Profile berhasil diperbarui!');
     }
 }

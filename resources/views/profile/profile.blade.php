@@ -1,6 +1,6 @@
 @extends('layout.template_admin')
-@section('title', 'Profile Madrasah')
-@section('header', 'Profile Madrasah')
+@section('title', 'Pengaturan')
+@section('header', 'Pengaturan')
 @section('content')
     <style>
         .profile-container {
@@ -101,14 +101,15 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum {{Auth::user()->name}}
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Assalamu'Alaikum
+                        {{ Auth::user()->name }}
                     </h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Profile</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Pengaturan</li>
                             </ol>
                         </nav>
                     </div>
@@ -129,7 +130,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="/profile/update/{{ $profile->id }}" method="POST" enctype="multipart/form-data">
+                            <form action="/setting/update/{{ $profile->id }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <table class="table">
                                     <thead>
@@ -137,7 +138,7 @@
                                             <th scope="col" colspan="3">
                                                 <div class="profile-container">
                                                     <div class="profile-wrapper">
-                                                        <img src="{{ asset('storage/profile/' . $profile->gambar) }}"
+                                                        <img src="{{ asset('storage/' . $profile->gambar) }}"
                                                             id="fotoPreview" class="profile-img">
 
                                                         <label for="fotoInput" class="edit-btn">
@@ -307,7 +308,7 @@
                                                             <button class="btn btn-warning" type="button"
                                                                 data-toggle="modal"
                                                                 data-target="#full-width-modal-edit-visi{{ $item->id }}">Edit</button>
-                                                            <a href="/profile/visi-delete/{{ $item->id }}"
+                                                            <a href="/setting/visi-delete/{{ $item->id }}"
                                                                 class="btn btn-danger">Hapus</a>
                                                         </td>
                                                     </tr>
@@ -324,7 +325,7 @@
                                                                 </div>
 
                                                                 <form method="POST"
-                                                                    action="/profile/visi-update/{{ $item->id }}">
+                                                                    action="/setting/visi-update/{{ $item->id }}">
                                                                     @csrf
                                                                     <div class="modal-body">
                                                                         <div class="mt-4">
@@ -377,7 +378,7 @@
                                                             <button class="btn btn-warning" type="button"
                                                                 data-toggle="modal"
                                                                 data-target="#full-width-modal-edit-misi{{ $item->id }}">Edit</button>
-                                                            <a href="/profile/misi-delete/{{ $item->id }}"
+                                                            <a href="/setting/misi-delete/{{ $item->id }}"
                                                                 class="btn btn-danger">Hapus</a>
                                                         </td>
                                                     </tr>
@@ -394,7 +395,7 @@
                                                                 </div>
 
                                                                 <form method="POST"
-                                                                    action="/profile/misi-update/{{ $item->id }}">
+                                                                    action="/setting/misi-update/{{ $item->id }}">
                                                                     @csrf
                                                                     <div class="modal-body">
                                                                         <div class="mt-4">
@@ -448,7 +449,7 @@
                                                             <button class="btn btn-warning" type="button"
                                                                 data-toggle="modal"
                                                                 data-target="#full-width-modal-edit-tujuan{{ $item->id }}">Edit</button>
-                                                            <a href="/profile/tujuan-delete/{{ $item->id }}"
+                                                            <a href="/setting/tujuan-delete/{{ $item->id }}"
                                                                 class="btn btn-danger">Hapus</a>
                                                         </td>
                                                     </tr>
@@ -465,7 +466,7 @@
                                                                 </div>
 
                                                                 <form method="POST"
-                                                                    action="/profile/tujuan-update/{{ $item->id }}">
+                                                                    action="/setting/tujuan-update/{{ $item->id }}">
                                                                     @csrf
                                                                     <div class="modal-body">
                                                                         <div class="mt-4">
@@ -499,6 +500,214 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Program Unggulan</h4>
+                            <div class="text-right mb-2">
+                                <button class="btn btn-success" type="button" data-toggle="modal"
+                                    data-target="#full-width-modal-program">Tambah
+                                    Program Unggulan</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Icon</th>
+                                            <th scope="col">Program Unggulan</th>
+                                            <th scope="col">Keterangan</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($program as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td><i data-feather="{{ $item->icon }}" class="feather-icon"></i></td>
+                                                <td>{{ $item->program_unggulan }}</td>
+                                                <td>{{ $item->keterangan }}</td>
+                                                <td>
+                                                    <button class="btn btn-warning" type="button" data-toggle="modal"
+                                                        data-target="#full-width-modal-edit-program{{ $item->id }}">Edit</button>
+                                                    <a href="/setting/program-delete/{{ $item->id }}"
+                                                        class="btn btn-danger">Hapus</a>
+                                            </tr>
+                                            {{-- modal edit program --}}
+                                            <div id="full-width-modal-edit-program{{ $item->id }}" class="modal fade"
+                                                tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel2"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-full-width">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="fullWidthModalLabel2">
+                                                                Update Program Unggulan</h4>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal">×</button>
+                                                        </div>
+
+                                                        <form method="POST"
+                                                            action="/setting/program-update/{{ $item->id }}">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="mt-4">
+                                                                    <div class="form-group">
+                                                                        <label for="icon"
+                                                                            class="form-label">Icon</label>
+                                                                        <input type="text" name="icon"
+                                                                            class="form-control"
+                                                                            value="{{ $item->icon }}">
+                                                                    </div>
+                                                                    <div class="form-group
+">
+                                                                        <label for="program_unggulan"
+                                                                            class="form-label">Program
+                                                                            Unggulan</label>
+                                                                        <input type="text" name="program_unggulan"
+                                                                            class="form-control"
+                                                                            value="{{ $item->program_unggulan }}">
+                                                                    </div>
+                                                                    <div class="form-group
+">
+                                                                        <label for="keterangan"
+                                                                            class="form-label">Keterangan</label>
+                                                                        <input type="text" name="keterangan"
+                                                                            class="form-control"
+                                                                            value="{{ $item->keterangan }}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light"
+                                                                    data-dismiss="modal">Tutup</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-success">Simpan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Galery</h4>
+                            <div class="text-right mb-2">
+                                <button class="btn btn-success" type="button" data-toggle="modal"
+                                    data-target="#full-width-modal-galeri">Tambah
+                                    Galeri</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Galery</th>
+                                            <th scope="col">Keterangan</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($galeri as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td> <img src="{{ asset('storage/' . $item->foto) }}"width="100px"></td>
+                                                <td>{{ $item->keterangan }}</td>
+                                                <td>
+                                                    <button class="btn btn-warning" type="button" data-toggle="modal"
+                                                        data-target="#full-width-modal-edit-galeri{{ $item->id }}">Edit</button>
+                                                    <a href="/setting/galeri-delete/{{ $item->id }}"
+                                                        class="btn btn-danger">Hapus</a>
+                                            </tr>
+                                            {{-- modal edit galeri  --}}
+                                            <div id="full-width-modal-edit-galeri{{ $item->id }}" class="modal fade"
+                                                tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel2"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-full-width">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="fullWidthModalLabel2">
+                                                                Update Galeri</h4>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal">×</button>
+                                                        </div>
+
+                                                        <form method="POST"
+                                                            action="/setting/galeri-update/{{ $item->id }}"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="mt-4">
+                                                                    <div class="form-group">
+                                                                        <label for="foto" class="form-label">Foto
+                                                                            Galeri</label>
+                                                                        <input type="file" name="foto"
+                                                                            class="form-control" id="fotogaleryInput">
+                                                                        <img src="{{ asset('storage/' . $item->foto) }}"
+                                                                            id="fotogaleryPreview" class="pmt-2"
+                                                                            width="100px">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="keterangan"
+                                                                            class="form-label">Keterangan</label>
+                                                                        <input type="text" name="keterangan"
+                                                                            class="form-control"
+                                                                            value="{{ $item->keterangan }}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light"
+                                                                    data-dismiss="modal">Tutup</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-success">Simpan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Pengaturan Waktu PMB</h4>
+                            <form method="POST" action="/setting/pmb-setting">
+                                @csrf
+                                <div class="col-12 form-group">
+                                    <label for="tanggal_mulai">Tanggal Mulai</label>
+                                    <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control"
+                                        value="{{ $waktu->tanggal_mulai }}">
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label for="tanggal_selesai">Tanggal Selesai</label>
+                                    <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control"
+                                        value="{{ $waktu->tanggal_selesai }}">
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-success">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- ============================================================== -->
         <!-- End Container fluid  -->
@@ -514,6 +723,73 @@
         <!-- End footer -->
         <!-- ============================================================== -->
     </div>
+    {{-- modal tambah data galeri --}}
+    <div id="full-width-modal-galeri" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="fullWidthModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-full-width">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="fullWidthModalLabel">Tambah Galeri</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+
+                <form method='POST' action="/setting/galeri-store" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mt-4">
+                            <div class="form-group">
+                                <label for="foto" class="form-label">Foto Galeri</label>
+                                <input type="file" name="foto" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan" class="form-label">Keterangan</label>
+                                <input type="text" name="keterangan" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- modal tambah program unggulan --}}
+    <div id="full-width-modal-program" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="fullWidthModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-full-width">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="fullWidthModalLabel">Tambah Program Unggulan</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+
+                <form method='POST' action="/setting/program-store">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mt-4">
+                            <div class="form-group">
+                                <label for="icon" class="form-label">Icon</label>
+                                <input type="text" name="icon" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="program_unggulan" class="form-label">Program Unggulan</label>
+                                <input type="text" name="program_unggulan" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan" class="form-label">Keterangan</label>
+                                <input type="text" name="keterangan" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     {{-- tambah visi --}}
     <div id="full-width-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fullWidthModalLabel"
@@ -525,7 +801,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
 
-                <form method='POST' action="/profile/visi-store">
+                <form method='POST' action="/setting/visi-store">
                     @csrf
                     <div class="modal-body">
                         <div class="mt-4">
@@ -553,7 +829,7 @@
                     <h4 class="modal-title" id="fullWidthModalLabel1">Tambah Misi</h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
-                <form method="POST" action="/profile/misi-store">
+                <form method="POST" action="/setting/misi-store">
                     @csrf
                     <div class="modal-body">
                         <div class="mt-4">
@@ -582,7 +858,7 @@
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 
-                <form method="POST" action="/profile/tujuan-store">
+                <form method="POST" action="/setting/tujuan-store">
                     @csrf
                     <div class="modal-body">
                         <div class="mt-4">
@@ -609,6 +885,18 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('fotoPreview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+    <script>
+        document.getElementById('fotogaleryInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('fotogaleryPreview').src = e.target.result;
             };
             reader.readAsDataURL(file);
         });

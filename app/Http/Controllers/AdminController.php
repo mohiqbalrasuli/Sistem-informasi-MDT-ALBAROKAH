@@ -41,15 +41,11 @@ class AdminController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $admin = User::findOrFail($id);
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-        ]);
-
-        $admin->name = $request->name;
-        $admin->email = $request->email;
-        $admin->save();
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email
+        ];
+        User::where('id', $id)->update($data);
 
         return redirect('/data-admin')->with('swal_success', 'Admin berhasil diupdate!');
     }

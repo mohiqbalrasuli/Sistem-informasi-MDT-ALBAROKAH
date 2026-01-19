@@ -45,7 +45,6 @@
                                                 <th>Jenis Kelamin</th>
                                                 <th>Tempat Lahir</th>
                                                 <th>Tanggal Lahir</th>
-                                                <th>Tahun Masuk</th>
                                                 <th>Alamat</th>
                                                 <th>Foto</th>
                                                 <th>Akta</th>
@@ -82,11 +81,11 @@
                                                                     </div>
                                                                     <div class="modal-body text-center">
                                                                         @if (in_array(pathinfo($item->foto, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                                                            <img src="{{ asset('storage/foto/' . $item->foto) }}"
+                                                                            <img src="{{ asset('storage/' . $item->foto) }}"
                                                                                 class="img-fluid">
                                                                         @else
                                                                             <iframe
-                                                                                src="{{ asset('storage/foto/' . $item->foto) }}"
+                                                                                src="{{ asset('storage/' . $item->foto) }}"
                                                                                 width="100%" height="500"></iframe>
                                                                         @endif
                                                                     </div>
@@ -109,11 +108,11 @@
                                                                     </div>
                                                                     <div class="modal-body text-center">
                                                                         @if (in_array(pathinfo($item->akta, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                                                            <img src="{{ asset('storage/akta/' . $item->akta) }}"
+                                                                            <img src="{{ asset('storage/' . $item->akta) }}"
                                                                                 class="img-fluid">
                                                                         @else
                                                                             <iframe
-                                                                                src="{{ asset('storage/akta/' . $item->akta) }}"
+                                                                                src="{{ asset('storage/' . $item->akta) }}"
                                                                                 width="100%" height="500"></iframe>
                                                                         @endif
                                                                     </div>
@@ -136,11 +135,11 @@
                                                                     </div>
                                                                     <div class="modal-body text-center">
                                                                         @if (in_array(pathinfo($item->akta, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png']))
-                                                                            <img src="{{ asset('storage/kk/' . $item->kk) }}"
+                                                                            <img src="{{ asset('storage/' . $item->kk) }}"
                                                                                 class="img-fluid">
                                                                         @else
                                                                             <iframe
-                                                                                src="{{ asset('storage/kk/' . $item->kk) }}"
+                                                                                src="{{ asset('storage/' . $item->kk) }}"
                                                                                 width="100%" height="500"></iframe>
                                                                         @endif
                                                                     </div>
@@ -152,7 +151,7 @@
                                                     <td>{{ $item->pekerjaan_ayah }}</td>
                                                     <td>{{ $item->nama_ibu }}</td>
                                                     <td>{{ $item->pekerjaan_ibu }}</td>
-                                                    <td>{{ $item->no_tlp }}</td>
+                                                    <td>{{ $item->no_telp }}</td>
                                                     <td class="text-center">
                                                         <a href="/data-murid/edit" class="btn btn-warning btn-sm">Edit</a>
                                                         <a href="#" class="btn btn-danger btn-sm">Hapus</a>

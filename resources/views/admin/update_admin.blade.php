@@ -63,7 +63,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mb-3">Form Update Admin</h4>
-                            <form action="/data-admin/update/{{$admin->admin}}" method="POST" enctype="multipart/form-data">
+                            <form action="/data-admin/update/{{$admin->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <!-- DATA MURID -->
                                 <div class="row">

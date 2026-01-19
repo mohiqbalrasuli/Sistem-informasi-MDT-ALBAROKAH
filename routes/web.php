@@ -10,11 +10,14 @@ use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PMBController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StrukturalController;
+use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LandingController::class, 'index']);
+Route::get('/PMB',[PMBController::class, 'landingPMB']);
+Route::get('/PMB/daftar',[PMBController::class, 'form']);
+Route::post('/PMB/daftar/store',[PMBController::class, 'store']);
+
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProcess']);
 
@@ -27,17 +30,25 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/dashboard/data-pengajar', [DashboardController::class, 'dataPengajar']);
     Route::get('/dashboard/data-fan', [DashboardController::class, 'dataFan']);
     // profile
-    Route::get('/profile', [ProfileController::class, 'index']);
-    Route::post('/profile/update/{id}', [ProfileController::class, 'update']);
-    Route::post('/profile/visi-store', [ProfileController::class, 'visiStore']);
-    Route::post('/profile/visi-update/{id}', [ProfileController::class, 'visiUpdate']);
-    Route::get('/profile/visi-delete/{id}', [ProfileController::class, 'visiDelete']);
-    Route::post('/profile/misi-store', [ProfileController::class, 'misiStore']);
-    Route::post('/profile/misi-update/{id}', [ProfileController::class, 'misiUpdate']);
-    Route::get('/profile/misi-delete/{id}', [ProfileController::class, 'misiDelete']);
-    Route::post('/profile/tujuan-store', [ProfileController::class, 'tujuanStore']);
-    Route::post('/profile/tujuan-update/{id}', [ProfileController::class, 'tujuanUpdate']);
-    Route::get('/profile/tujuan-delete/{id}', [ProfileController::class, 'tujuanDelete']);
+    Route::get('/setting', [ProfileController::class, 'index']);
+    Route::post('/setting/update/{id}', [ProfileController::class, 'update']);
+    Route::post('/setting/visi-store', [ProfileController::class, 'visiStore']);
+    Route::post('/setting/visi-update/{id}', [ProfileController::class, 'visiUpdate']);
+    Route::get('/setting/visi-delete/{id}', [ProfileController::class, 'visiDelete']);
+    Route::post('/setting/misi-store', [ProfileController::class, 'misiStore']);
+    Route::post('/setting/misi-update/{id}', [ProfileController::class, 'misiUpdate']);
+    Route::get('/setting/misi-delete/{id}', [ProfileController::class, 'misiDelete']);
+    Route::post('/setting/tujuan-store', [ProfileController::class, 'tujuanStore']);
+    Route::post('/setting/tujuan-update/{id}', [ProfileController::class, 'tujuanUpdate']);
+    Route::get('/setting/tujuan-delete/{id}', [ProfileController::class, 'tujuanDelete']);
+    Route::post('/setting/galeri-store', [ProfileController::class, 'galeriStore']);
+    Route::post('/setting/galeri-update/{id}', [ProfileController::class, 'galeriUpdate']);
+    Route::get('/setting/galeri-delete/{id}', [ProfileController::class, 'galeriDelete']);
+    Route::post('/setting/program-store', [ProfileController::class, 'programStore']);
+    Route::post('/setting/program-update/{id}', [ProfileController::class, 'programUpdate']);
+    Route::get('/setting/program-delete/{id}', [ProfileController::class, 'programDelete']);
+    Route::post('/setting/pmb-setting', [ProfileController::class, 'pmbSetting']);
+    // profile end
     // admin
     Route::get('/data-admin', [AdminController::class, 'index']);
     Route::get('/data-admin/create', [AdminController::class, 'create']);

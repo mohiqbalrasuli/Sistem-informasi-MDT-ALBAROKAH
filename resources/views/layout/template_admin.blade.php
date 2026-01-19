@@ -167,9 +167,6 @@
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/dashboard"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/profile"
-                                aria-expanded="false"><i data-feather="briefcase" class="feather-icon"></i><span
-                                    class="hide-menu">Profile Madrasah</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/data-admin"
                                 aria-expanded="false"><i data-feather="user" class="feather-icon"></i><span
                                     class="hide-menu">Data Admin</span></a></li>
@@ -179,7 +176,7 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Murid</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
+                                aria-expanded="false"><i data-feather="users" class="feather-icon"></i><span
                                     class="hide-menu">Data Murid </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item"><a href="{{url('/data-murid')}}" class="sidebar-link"><span
@@ -215,7 +212,7 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Pelajaran</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
+                                aria-expanded="false"><i data-feather="book" class="feather-icon"></i><span
                                     class="hide-menu">Data Fan </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item"><a href="{{url('/data-fan')}}" class="sidebar-link"><span
@@ -251,7 +248,7 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Tenaga Pengajar</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
+                                aria-expanded="false"><i data-feather="award" class="feather-icon"></i><span
                                     class="hide-menu">Data Pengajar </span></a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item"><a href="/data-pengajar"
@@ -268,7 +265,7 @@
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/blog"
                                 aria-expanded="false"><i data-feather="book-open" class="feather-icon"></i><span
                                     class="hide-menu">Blog</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="index.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/setting"
                                 aria-expanded="false"><i data-feather="settings" class="feather-icon"></i><span
                                     class="hide-menu">Pengaturan</span></a></li>
                     </ul>
